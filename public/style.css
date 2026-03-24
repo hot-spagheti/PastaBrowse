@@ -70,4 +70,10 @@ p{
     color: #ccc;
     outline: 2px solid #2e2e2e;
     border: none;
+    
+    transition: 100ms;
+}
+
+.win_com:hover{
+    background-color: #535353;
 }

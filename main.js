@@ -1,9 +1,10 @@
 const {app, BrowserWindow, ipcMain} = require("electron");
 
 const winSize = {width: 1600, height: 900}
+let win;
 
 function createWindow(){
-	const win = new BrowserWindow({
+	win = new BrowserWindow({
 		width: winSize.width,
 		height: winSize.height,
 		title: "PastaBrowse",
@@ -26,6 +27,18 @@ function createWindow(){
 
 ipcMain.on("kill-app", () => {
 	app.quit();
+})
+
+ipcMain.on("maximize", () => {
+	if (win.isMaximized()){
+		win.unmaximize();
+	} else {
+		win.maximize();
+	}
+})
+
+ipcMain.on("minimize", () => {
+	win.minimize();
 })
 
 app.whenReady().then(createWindow)

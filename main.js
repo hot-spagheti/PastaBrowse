@@ -1,12 +1,14 @@
-const {app, BrowserWindow, ipcMain} = require("electron");
-
-const winSize = {width: 1248, height: 702}
-let win;
+const {app, BrowserWindow, ipcMain, screen} = require("electron");
 
 function createWindow(){
+	const primaryDisplay = screen.getPrimaryDisplay();
+	const {screen_width, screen_height} = primaryDisplay.workArea;
+
 	win = new BrowserWindow({
-		width: winSize.width,
-		height: winSize.height,
+		width: Math.floor(0.7*screen_width),
+		height: Math.floor(0.7*screen_height),
+		minWidth: 1200,
+		minHeight: 800,
 		title: "PastaBrowse",
 		webPreferences: {
 			webviewTag: true,
@@ -21,7 +23,6 @@ function createWindow(){
 	});
 
 	win.loadFile("public/index.html");
-	win.maximize();
 	win.webContents.setZoomFactor(1.0);
 }
 

@@ -62,7 +62,7 @@ const tab_container = document.getElementById("tab_container");
 tab_container.addEventListener("click", onClickRouter);   /*Determines the function to be executed based on emitter of click*/
 
 function onClickRouter(e){
-  if (e.target.parentElement.classList.contains("tab")){
+  if (e.target.classList.contains("tabXBtn")){
     removeTab(e.target.parentElement);
   }
   

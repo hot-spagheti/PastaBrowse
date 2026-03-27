@@ -166,5 +166,17 @@ function reloadView(){
   newView.id = "view";
   newView.classList.add("view");
 
+  newView.addEventListener("did-navigate", saveNav);
+  newView.addEventListener("did-navigate-in-page", saveNav);
+
   document.body.appendChild(newView);
+}
+
+function saveNav(e){
+  console.log("Navved");
+
+  const id = tab_container.querySelector(".main_tab").id
+  const view = document.getElementById("view");
+
+  tab_list[id] = e.url;
 }

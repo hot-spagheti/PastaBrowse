@@ -8,6 +8,10 @@ input.addEventListener("keypress", (e) => {
   }
 })
 
+input.addEventListener("focus", () => {
+  input.select();
+})
+
 const root_exit_btn = document.getElementById("root_exit_btn");
 root_exit_btn.addEventListener("click", root_exit);
 

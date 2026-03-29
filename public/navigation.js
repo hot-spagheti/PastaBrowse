@@ -4,21 +4,47 @@ export let tab_list = {
 
 export function loadURL(){
   const input = document.getElementById("url");
-  const val = input.value;
+  let trimmed_input = input.value.trim();
+
   const tab_container = document.getElementById("tab_container");
   const view = document.getElementById("view");
 
-  let url = val;
+  const search_engines = [
+    "https://www.google.com/search?q=",
+    "https://www.duckduckgo.com/?q=",
+    "https://www.bing.com/?q="
+  ];
 
-  if (!url.startsWith("http")) {
-    url = "https://" + url
+  if (isURL(trimmed_input)){
+    const url = ensureProtocol(trimmed_input);
+
+    view.src = url;
+    input.value = url;
+    const id = tab_container.querySelector(".main_tab").id
+    tab_list[id] = url;
+  } else {
+    const url = search_engines[0] + encodeURIComponent(trimmed_input);
+
+    view.src = url;
+    input.value = url;
+    const id = tab_container.querySelector(".main_tab").id
+    tab_list[id] = url;
   }
+}
 
-  const id = tab_container.querySelector(".main_tab").id
-  tab_list[id] = url;
 
-  view.src = url;
-  input.value = url;
+function isURL(input){
+  if (/^https?:\/\//i.test(input)){return true};    /* starts with http | https | HTTP | HTTPS*/
+  if (/^([\w-]+\.)+[\w-]{2,}(:\d+)?(\/\S*)?$/.test(input)){return true};    /*common TLDs without protocol*/
+  if (/^localhost(:\d+)?(\/\S*)?$/.test(input)){return true};    /*localhost*/
+  if (/^\d{1,3}(\.\d{1,3}){3}(:\d+)?(\/\S*)?$/.test(input)){return true};    /*IP adress*/
+
+  return false
+}
+
+
+function ensureProtocol(url){
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`;
 }
 
 

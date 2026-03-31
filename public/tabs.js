@@ -1,5 +1,5 @@
 import {tab_list, reloadView, loadURLfromTabList, refresh} from "./navigation.js";
-import {root_exit} from "./window-controls.js";
+import {root_exit} from "./ipc.js";
 
 let id_count = 1
 
@@ -73,8 +73,6 @@ export function switchTab(tab){
 
 
 export async function setTitleAndFavIcon(){
-  console.log("working");
-
   const webview = document.getElementById("view");
   const tab_container = document.getElementById("tab_container");
   const main_tab = tab_container.querySelector(".main_tab");

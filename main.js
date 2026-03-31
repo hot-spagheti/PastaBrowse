@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, screen} = require("electron");
+const {app, BrowserWindow, ipcMain, screen, globalShortcut} = require("electron");
 
 function createWindow(){
 	const primaryDisplay = screen.getPrimaryDisplay();
@@ -43,4 +43,10 @@ ipcMain.on("minimize", () => {
 	win.minimize();
 })
 
-app.whenReady().then(createWindow)
+app.on("ready", () => {
+	createWindow();
+	
+	globalShortcut.register("CommandOrControl+T", () => {
+		win.webContents.send("ctrl-t");
+	})
+})

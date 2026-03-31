@@ -26,3 +26,8 @@ export function minimize(){
 export function onCtrlT(callback){
   window.api.onCtrlT(callback);
 }
+
+
+export function onCtrlW(callback){
+  window.api.onCtrlW(callback);
+}

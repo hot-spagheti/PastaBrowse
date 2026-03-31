@@ -49,4 +49,8 @@ app.on("ready", () => {
 	globalShortcut.register("CommandOrControl+T", () => {
 		win.webContents.send("ctrl-t");
 	})
+
+	globalShortcut.register("CommandOrControl+W", () => {
+		win.webContents.send("ctrl-w");
+	})
 })

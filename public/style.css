@@ -169,3 +169,18 @@ p{
 .navBtn:hover{
     background-color: #535353;
 }
+
+.search_engine_select{
+    background-color: #3f3f3f;
+    padding: 0 0 0 0.5%;
+    color: #ccc;
+    height: 90%;
+    outline: 2px solid #2e2e2e;
+    border: 0;
+    font-size: 1rem;
+    
+}
+
+.search_engine_select:hover{
+    background-color: #535353;
+}

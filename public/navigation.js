@@ -1,5 +1,7 @@
 import {setTitleAndFavIcon} from "./tabs.js"; 
 
+let isProgrammaticNav = false;
+
 export let tab_list = {
   "0": {
     current_tab_id: 0,
@@ -27,8 +29,6 @@ export function loadURL(){
     input.value = url;
     const id = tab_container.querySelector(".main_tab").id
 
-    tab_list[id].tab_history.push(url);
-    tab_list[id].current_tab_id = tab_list[id].tab_history.length - 1;
   } else {
     const search_engine_select = document.getElementById("search_engine_select");
     const s_e = Number(search_engine_select.value);
@@ -39,9 +39,6 @@ export function loadURL(){
     input.value = url;
     const id = tab_container.querySelector(".main_tab").id
 
-    
-    tab_list[id].tab_history.push(url);
-    tab_list[id].current_tab_id = tab_list[id].tab_history.length - 1;
   }
 }
 
@@ -61,20 +58,26 @@ function ensureProtocol(url){
 }
 
 
-export function loadURLfromTabList(tab){
+export function loadURLfromTabList(tab, h = 0){
   const input = document.getElementById("url");
   const view = document.getElementById("view");
 
   const tab_id = tab.id;
   const newTab = tab_list[tab_id];
-  const url = newTab.tab_history[newTab.current_tab_id];
 
-  view.src = url;
+  if (newTab.tab_history[newTab.current_tab_id + h] !== undefined){
+    newTab.current_tab_id += h;
+    const url = newTab.tab_history[newTab.current_tab_id];
+    
+    view.src = url;
   
-  if (url !== "about:blank"){
-    input.value = url;
+    if (url !== "about:blank"){
+      input.value = url;
+    } else {
+      input.value = "";
+    }
   } else {
-    input.value = "";
+    console.error("Tab History index out of range");
   }
 }
 
@@ -100,8 +103,23 @@ export function saveNav(e){
   const input = document.getElementById("url");
   const view = document.getElementById("view");
 
-  tab_list[id].tab_history.push(e.url);
-  tab_list[id].current_tab_id = tab_list[id].tab_history.length - 1;
+  if (isProgrammaticNav){
+    isProgrammaticNav = false;
+
+    if (e.url !== "about:blank"){
+      input.value = e.url;
+    } else{
+      input.value = "";
+    }
+
+    setTitleAndFavIcon();
+    return;
+  }
+
+  if (e.url !== tab_list[id].tab_history[tab_list[id].current_tab_id]){
+    tab_list[id].tab_history.push(e.url);
+    tab_list[id].current_tab_id = tab_list[id].tab_history.length - 1;
+  }
   
   if (e.url !== "about:blank"){
     input.value = e.url;
@@ -122,3 +140,21 @@ export function refresh(){
     reloadView();
   }
 }
+
+
+export function history_backward(){
+  const tab_container = document.getElementById("tab_container");
+  const tab = tab_container.querySelector(".main_tab");
+
+  isProgrammaticNav = true;
+  loadURLfromTabList(tab, -1);
+}
+
+export function history_forward(){
+  const tab_container = document.getElementById("tab_container");
+  const tab = tab_container.querySelector(".main_tab");
+
+  isProgrammaticNav = true;
+  loadURLfromTabList(tab, 1);
+}
+

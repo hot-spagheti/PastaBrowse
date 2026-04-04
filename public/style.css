@@ -184,3 +184,7 @@ p{
 .search_engine_select:hover{
     background-color: #535353;
 }
+
+.loadLastSeshBtn{
+    margin-left: auto;
+}

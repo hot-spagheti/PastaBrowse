@@ -1,7 +1,8 @@
 const {contextBridge, ipcRenderer} = require("electron");
 
+
 contextBridge.exposeInMainWorld("api", {
-  killApp: () => ipcRenderer.send("kill-app"),
+  killApp: (data) => ipcRenderer.send("kill-app", data),
   toggleMaximize: () => ipcRenderer.send("maximize"),
   minimize: () => ipcRenderer.send("minimize"),
   onCtrlT: (callback) => ipcRenderer.on("ctrl-t", (_event) => callback()),

@@ -1,4 +1,5 @@
 const {app, BrowserWindow, ipcMain, screen, globalShortcut} = require("electron");
+const {writeFileSync, readFileSync} = require("fs");
 
 function createWindow(){
 	const primaryDisplay = screen.getPrimaryDisplay();
@@ -27,7 +28,8 @@ function createWindow(){
 	win.maximize();
 }
 
-ipcMain.on("kill-app", () => {
+ipcMain.on("kill-app", (_event, data) => {
+	writeFileSync("./history.json", JSON.stringify(data));
 	app.quit();
 })
 

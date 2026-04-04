@@ -1,5 +1,7 @@
+import {tab_list} from "./navigation.js";
+
 export function root_exit(){
-  window.api.killApp();
+  window.api.killApp(tab_list);
 };
 
 

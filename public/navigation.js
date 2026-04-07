@@ -65,14 +65,15 @@ function ensureProtocol(url){
 
 export function loadURLfromTabList(tab, h = 0){
   const input = document.getElementById("url");
-  const view = document.getElementById("view");
+  const webview_container = document.getElementById("webview_container");
+  const view = webview_container.querySelector(".main_view");
 
-  const tab_id = tab.id;
-  const newTab = tab_list[tab_id];
+  const tab_id = tab["tab_id"];
+  const newTab = tab_list["tabs"].find(obj => obj["tab_id"] === Number(tab_id));
 
-  if (newTab.tab_history[newTab.current_tab_id + h] !== undefined){
-    newTab.current_tab_id += h;
-    const url = newTab.tab_history[newTab.current_tab_id];
+  if (newTab["tab_history"][newTab["history_url_id"] + h] !== undefined){
+    newTab["history_url_id"] += h;
+    const url = newTab["tab_history"][newTab["history_url_id"]];
     
     view.src = url;
   
@@ -138,12 +139,11 @@ export function saveNav(e){
 
 
 export function refresh(){
-  const newTab = tab_container.querySelector(".main_tab");
-  
-  if (tab_list[newTab.id].tab_history[tab_list[newTab.id].current_tab_id] !== ""){
+  const newTabId = tab_container.querySelector(".main_tab").id.slice(4);
+  const newTab = tab_list["tabs"].find(obj => obj["tab_id"] === Number(newTabId));
+
+  if (newTab["tab_history"][newTab["history_url_id"]] !== ""){
     loadURLfromTabList(newTab);
-  } else {
-    reloadView();
   }
 }
 

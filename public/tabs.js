@@ -94,7 +94,7 @@ export function switchTab(tab){
 }
 
 
-export async function setTitleAndFavIcon(){
+export async function setTitleAndFavIcon(url){
   const webview_container = document.getElementById("webview_container");
   const webview = webview_container.querySelector(".main_view");
 
@@ -105,10 +105,14 @@ export async function setTitleAndFavIcon(){
   const img = main_tab.querySelector(".tab_icon");
   
   const title = await webview.executeJavaScript("document.title");
-
+  
   if (title){
     p.innerHTML = title;
   }
+
+  const favIconSize = 64;
+
+  img.src = `https://www.google.com/s2/favicons?domain=${url}&sz=${String(favIconSize)}`;
 }
 
 

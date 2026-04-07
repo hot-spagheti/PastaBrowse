@@ -112,7 +112,7 @@ export function saveNav(e){
       input.value = "";
     }
 
-    setTitleAndFavIcon();
+    setTitleAndFavIcon(e.url);
     return;
   }
 
@@ -129,7 +129,7 @@ export function saveNav(e){
     input.value = "";
   }
 
-  setTitleAndFavIcon();
+  setTitleAndFavIcon(e.url);
 }
 
 

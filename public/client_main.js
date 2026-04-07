@@ -1,5 +1,5 @@
 import {loadURL, saveNav, refresh, history_backward, history_forward} from "./navigation.js";
-import {newTab, removeTab, setTitleAndFavIcon, switchTab, loadLastSesh} from "./tabs.js";
+import {newTab, removeTab, switchTab, loadLastSesh} from "./tabs.js";
 import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, getHistory, onResHistory} from "./ipc.js";
 
 const searchBtn = document.getElementById("searchBtn");

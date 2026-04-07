@@ -208,9 +208,18 @@ p{
 }
 
 .tab_title{
+    display: flex;
+    align-items: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 0;
     font-size: 1.2rem;
+    line-height: 1;
+}
+
+.tab_icon{
+    margin: 0 0 0 3%; 
+    height: 45%;
+    aspect-ratio: 1;
 }

@@ -1,4 +1,4 @@
-import {tab_list, loadURLfromTabList, refresh, history_backward, saveNav, setIsProgrammaticNav} from "./navigation.js";
+import {tab_list, loadURLfromTabList, saveNav, setIsProgrammaticNav} from "./navigation.js";
 import {root_exit, getHistory} from "./ipc.js";
 
 let id_count = 1

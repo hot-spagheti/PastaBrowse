@@ -102,10 +102,27 @@ p{
     pointer-events: none;
 }
 
-.view{
+.webview_container{
     width: 100%;
     height: 94%;
+    position: relative;
+}
+
+.view{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #565656;
+}
+
+.main_view{
+    z-index: 1;
+}
+
+.bg_view{
+    z-index: -1;
 }
 
 .win_com_container{

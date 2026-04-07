@@ -1,11 +1,11 @@
-import {tab_list, reloadView, loadURLfromTabList, refresh, history_backward} from "./navigation.js";
+import {tab_list, reloadView, loadURLfromTabList, refresh, history_backward, saveNav} from "./navigation.js";
 import {root_exit, getHistory} from "./ipc.js";
 
 let id_count = 1
 
 export function newTab(){
   const newTabHTML = `
-    <div class="tab main_tab" id="${id_count}">
+    <div class="tab main_tab" id="tab_${id_count}">
       <img id="tab_icon" class="tab_icon" src="" alt="">
       <p class="tab_title">New Tab</p>
       <button class="tabXBtn" id="tabXBtn"><img src="../Icons/close.svg" alt="x"></button>
@@ -18,16 +18,19 @@ export function newTab(){
   tab_container.querySelector(".main_tab").classList.remove("main_tab");
   newTabBtn.insertAdjacentHTML("beforebegin", newTabHTML);
 
-  tab_list[String(id_count)] = {
-    current_tab_id: 0,
-    tab_history: [""]
-  };
+  tab_list["tabs"].push(
+    {
+      "tab_id": id_count,
+      "current_tab_id": 0, 
+      "tab_history": [""]
+    }
+  ) 
+  
+  newWebview();
 
   id_count += 1;
 
   input.value = "";
-
-  reloadView();
 }
 
 
@@ -68,11 +71,16 @@ export function switchTab(tab){
   tab_container.querySelector(".main_tab").classList.remove("main_tab");
   tab.classList.add("main_tab");
   
-  if (tab_list[tab.id] !== ""){
-    loadURLfromTabList(tab);
-  } else {
-    reloadView();
-  }
+  const view_container = document.getElementById("webview_container");
+  const oldView = view_container.querySelector(".main_view");
+
+  oldView.classList.remove("main_view");
+  oldView.classList.add("bg_view");
+
+  const newView = document.getElementById(`view_${tab.id.slice(4)}`);
+
+  newView.classList.remove("bg_view");
+  newView.classList.add("main_view");
 }
 
 
@@ -119,4 +127,24 @@ export function loadLastSesh(data){
   tab_container.querySelector(".main_tab").classList.remove("main_tab");
   lastTab.classList.add("main_tab");
   loadURLfromTabList(lastTab);
+}
+
+function newWebview(){
+  const webview_container = document.getElementById("webview_container");
+  const oldMainView = webview_container.querySelector(".main_view");
+
+  oldMainView.classList.remove("main_view");
+  oldMainView.classList.add("bg_view");
+
+  const newView = document.createElement("webview");
+  newView.src = "about:blank";
+  newView.id = `view_${id_count}`;
+
+  newView.classList.add("view");
+  newView.classList.add("main_view");
+
+  newView.addEventListener("did-navigate", saveNav);
+  newView.addEventListener("did-navigate-in-page", saveNav);
+
+  webview_container.appendChild(newView);
 }

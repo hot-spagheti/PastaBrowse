@@ -12,7 +12,7 @@
   <header>
 		<div id="tab_container" class="tab_container">
 
-			<div class="tab main_tab" id="0">
+			<div class="tab main_tab" id="tab_0">
 				<img class="tab_icon" src="" alt="">
 				<p class="tab_title">New Tab</p>
 				<button class="tabXBtn" id="tabXBtn"><img src="../Icons/close.svg" alt="x"></button>
@@ -43,7 +43,10 @@
 		</nav>
 	</header>
 	
-	<webview class="view" id="view"></webview>
+	<div class="webview_container" id="webview_container">
+		<webview class="view main_view" id="view_0"></webview>
+	</div>
+	
 
 	<script type="module" src="client_main.js"></script>
 </body>

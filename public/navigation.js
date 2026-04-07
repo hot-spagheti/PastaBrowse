@@ -3,10 +3,14 @@ import {setTitleAndFavIcon} from "./tabs.js";
 let isProgrammaticNav = false;
 
 export let tab_list = {
-  "0": {
-    current_tab_id: 0,
-    tab_history: [""]
-  }
+  "main_tab_id": 0,
+  "tabs": [
+    {
+      "tab_id": 0,
+      "history_url_id": 0,
+      "tab_history": [""]
+    }
+  ]
 }
 
 export function loadURL(){
@@ -14,7 +18,9 @@ export function loadURL(){
   let trimmed_input = input.value.trim();
 
   const tab_container = document.getElementById("tab_container");
-  const view = document.getElementById("view");
+
+  const webview_container = document.getElementById("webview_container");
+  const view = webview_container.querySelector(".main_view");
 
   const search_engines = [
     "https://www.google.com/search?q=",
@@ -38,7 +44,6 @@ export function loadURL(){
     view.src = url;
     input.value = url;
     const id = tab_container.querySelector(".main_tab").id
-
   }
 }
 

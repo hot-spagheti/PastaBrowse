@@ -2,6 +2,12 @@ import {setTitleAndFavIcon} from "./tabs.js";
 
 let isProgrammaticNav = false;
 
+
+export function setIsProgrammaticNav(val){
+  isProgrammaticNav = val;
+}
+
+
 export let tab_list = {
   "main_tab_id": 0,
   "tabs": [
@@ -89,6 +95,10 @@ export function loadURLfromTabList(tab, h = 0){
 
 
 export function saveNav(e){
+  if (e.url === "about:blank"){
+    return;
+  }
+
   const tab_container = document.getElementById("tab_container");
   const id = tab_container.querySelector(".main_tab").id.slice(4);
   const input = document.getElementById("url");

@@ -1,4 +1,4 @@
-import {tab_list, loadURLfromTabList, refresh, history_backward, saveNav} from "./navigation.js";
+import {tab_list, loadURLfromTabList, refresh, history_backward, saveNav, setIsProgrammaticNav} from "./navigation.js";
 import {root_exit, getHistory} from "./ipc.js";
 
 let id_count = 1
@@ -26,6 +26,8 @@ export function newTab(){
     }
   ) 
   
+  tab_list["main_tab_id"] = id_count;
+
   newWebview();
 
   id_count += 1;
@@ -69,6 +71,8 @@ export function switchTab(tab){
   const tab_container = document.getElementById("tab_container");
   tab_container.querySelector(".main_tab").classList.remove("main_tab");
   tab.classList.add("main_tab");
+
+  tab_list["main_tab_id"] = tab.id.slice(4);
   
   const view_container = document.getElementById("webview_container");
   const oldView = view_container.querySelector(".main_view");
@@ -102,33 +106,20 @@ export async function setTitleAndFavIcon(){
 
 
 export function loadLastSesh(data){
-  const keys = Object.keys(data);
-  
-  for (let i = 0; i < keys.length; i++){
-    const key = keys[i];
-    tab_list[key] = data[key];
+  for (let tab_obj of data["tabs"]){
+    newTab();
 
-    if (i === 0) {
-      const tabEl = document.getElementById("0");
-      tabEl.id = key;
-    } else {
-      const tab_container = document.getElementById("tab_container");
-      const newTabBtn = document.getElementById("newTabBtn");
-      const newTabHTML = `
-        <div class="tab" id="${key}">
-          <img id="tab_icon" class="tab_icon" src="" alt="">
-          <p class="tab_title">New Tab</p>
-          <button class="tabXBtn" id="tabXBtn"><img src="../Icons/close.svg" alt="x"></button>
-        </div>`;
-      newTabBtn.insertAdjacentHTML("beforebegin", newTabHTML);
-    }
+    const tab_container = document.getElementById("tab_container");
+    const tab_id = tab_container.querySelector(".main_tab").id.slice(4);
+
+    const tab_in_tabList = tab_list["tabs"].find(obj => obj["tab_id"] === Number(tab_id));
+
+    tab_in_tabList["history_url_id"] = tab_obj["history_url_id"];
+    tab_in_tabList["tab_history"] = tab_obj["tab_history"];
+    
+    setIsProgrammaticNav(true);
+    loadURLfromTabList(tab_in_tabList);
   }
-  
-  const lastKey = keys[keys.length - 1];
-  const lastTab = document.getElementById(lastKey);
-  tab_container.querySelector(".main_tab").classList.remove("main_tab");
-  lastTab.classList.add("main_tab");
-  loadURLfromTabList(lastTab);
 }
 
 function newWebview(){
@@ -139,7 +130,6 @@ function newWebview(){
   oldMainView.classList.add("bg_view");
 
   const newView = document.createElement("webview");
-  newView.src = "about:blank";
   newView.id = `view_${id_count}`;
 
   newView.classList.add("view");

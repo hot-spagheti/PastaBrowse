@@ -69,11 +69,18 @@ export function removeTab(tab){
 
 export function switchTab(tab){
   const tab_container = document.getElementById("tab_container");
+
   tab_container.querySelector(".main_tab").classList.remove("main_tab");
   tab.classList.add("main_tab");
 
-  tab_list["main_tab_id"] = tab.id.slice(4);
+  const tab_id = Number(tab.id.slice(4));
+
+  tab_list["main_tab_id"] = tab_id;
   
+  const input = document.getElementById("url");
+  const tab_obj = tab_list["tabs"].find(obj => obj["tab_id"] === tab_id);
+  input.value = tab_obj["tab_history"][tab_obj["history_url_id"]];
+
   const view_container = document.getElementById("webview_container");
   const oldView = view_container.querySelector(".main_view");
 

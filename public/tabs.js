@@ -85,9 +85,12 @@ export function switchTab(tab){
 
 
 export async function setTitleAndFavIcon(){
-  const webview = document.getElementById("view");
+  const webview_container = document.getElementById("webview_container");
+  const webview = webview_container.querySelector(".main_view");
+
   const tab_container = document.getElementById("tab_container");
   const main_tab = tab_container.querySelector(".main_tab");
+  
   const p = main_tab.querySelector("p");
   const img = main_tab.querySelector(".tab_icon");
   

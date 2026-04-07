@@ -104,9 +104,8 @@ export function reloadView(){
 
 export function saveNav(e){
   const tab_container = document.getElementById("tab_container");
-  const id = tab_container.querySelector(".main_tab").id;
+  const id = tab_container.querySelector(".main_tab").id.slice(4);
   const input = document.getElementById("url");
-  const view = document.getElementById("view");
 
   if (isProgrammaticNav){
     isProgrammaticNav = false;
@@ -121,9 +120,11 @@ export function saveNav(e){
     return;
   }
 
-  if (e.url !== tab_list[id].tab_history[tab_list[id].current_tab_id]){
-    tab_list[id].tab_history.push(e.url);
-    tab_list[id].current_tab_id = tab_list[id].tab_history.length - 1;
+  const tab = tab_list["tabs"].find(obj => obj["tab_id"] === Number(id));
+
+  if (e.url !== tab["tab_history"][tab["history_url_id"]]){
+    tab["tab_history"].push(e.url);
+    tab["history_url_id"] = tab["tab_history"].length - 1;
   }
   
   if (e.url !== "about:blank"){

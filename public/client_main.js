@@ -51,7 +51,7 @@ function onClickRouter(e){          /*Determines the function to be executed bas
 }
 
 
-const initalView = document.getElementById("view");
+const initalView = document.getElementById("view_0");
 initalView.addEventListener("did-navigate", saveNav);
 initalView.addEventListener("did-navigate-in-page", saveNav);
 

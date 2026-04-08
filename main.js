@@ -1,6 +1,8 @@
 const {app, BrowserWindow, ipcMain, screen, globalShortcut} = require("electron");
 const {writeFileSync, readFileSync} = require("fs");
 
+let win;
+
 function createWindow(){
 	const primaryDisplay = screen.getPrimaryDisplay();
 	const {screen_width, screen_height} = primaryDisplay.workArea;
@@ -49,11 +51,15 @@ app.on("ready", () => {
 	createWindow();
 	
 	globalShortcut.register("CommandOrControl+T", () => {
-		win.webContents.send("ctrl-t");
+		if (win.isFocused()){
+			win.webContents.send("ctrl-t");
+		}
 	})
 
 	globalShortcut.register("CommandOrControl+W", () => {
-		win.webContents.send("ctrl-w");
+		if (win.isFocused()){
+			win.webContents.send("ctrl-w");
+		}
 	})
 })
 

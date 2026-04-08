@@ -15,7 +15,12 @@ export function newTab(){
   const newTabBtn = document.getElementById("newTabBtn");
   const input = document.getElementById("url");
 
-  tab_container.querySelector(".main_tab").classList.remove("main_tab");
+  const oldTab = tab_container.querySelector(".main_tab");
+
+  oldTab.classList.add("side_tab");
+  oldTab.querySelector(".tabXBtn").classList.add("side_tabXBtn");
+  oldTab.classList.remove("main_tab");
+  
   newTabBtn.insertAdjacentHTML("beforebegin", newTabHTML);
 
   tab_list["tabs"].push(
@@ -69,8 +74,15 @@ export function removeTab(tab){
 
 export function switchTab(tab){
   const tab_container = document.getElementById("tab_container");
+  const oldTab = tab_container.querySelector(".main_tab");
 
-  tab_container.querySelector(".main_tab").classList.remove("main_tab");
+
+  oldTab.classList.add("side_tab");
+  oldTab.querySelector(".tabXBtn").classList.add("side_tabXBtn");
+  oldTab.classList.remove("main_tab");
+
+  tab.classList.remove("side_tab");
+  tab.querySelector(".tabXBtn").classList.remove("side_tabXBtn");
   tab.classList.add("main_tab");
 
   const tab_id = Number(tab.id.slice(4));

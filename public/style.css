@@ -227,3 +227,15 @@ p{
     height: 45%;
     aspect-ratio: 1;
 }
+
+.side_tab:hover{
+    background-color: #494949;
+}
+
+.side_tab:hover .side_tabXBtn{
+    background-color: #494949;
+} 
+
+.side_tab:hover .side_tabXBtn:hover{
+    background-color: #5a5959;
+}

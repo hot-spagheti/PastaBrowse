@@ -68,6 +68,12 @@ app.on("ready", () => {
 			win.webContents.send("ctrl-r");
 		}
 	})
+
+	globalShortcut.register("F5", () => {
+		if (win.isFocused()){
+			win.webContents.send("F5");
+		}
+	})
 })
 
 ipcMain.on("get-history", () => {

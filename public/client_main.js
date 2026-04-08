@@ -1,6 +1,6 @@
 import {loadURL, saveNav, refresh, history_backward, history_forward} from "./navigation.js";
 import {newTab, removeTab, switchTab, loadLastSesh} from "./tabs.js";
-import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, getHistory, onResHistory} from "./ipc.js";
+import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, onF5, getHistory, onResHistory} from "./ipc.js";
 
 const searchBtn = document.getElementById("searchBtn");
 searchBtn.addEventListener("click", loadURL);
@@ -77,6 +77,9 @@ onCtrlR(() => {
   refresh();
 })
 
+onF5(() => {
+  refresh();
+})
 
 const history_backward_btn = document.getElementById("backwardBtn")
 history_backward_btn.addEventListener("click", history_backward);

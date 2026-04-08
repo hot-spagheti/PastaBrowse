@@ -51,6 +51,12 @@ export function getHistory(){
   window.api.getHistory();
 }
 
+
 export function onResHistory(callback){
   window.api.onResHistory(callback);
+}
+
+
+export function onF5(callback){
+  window.api.onF5(callback);
 }

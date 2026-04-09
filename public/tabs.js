@@ -158,9 +158,16 @@ export function loadLastSesh(data){
     tab_in_tabList["history_url_id"] = tab_obj["history_url_id"];
     tab_in_tabList["tab_history"] = tab_obj["tab_history"];
     
-    main_tab.querySelector("p").innerHTML = tab_obj["title"];
-    main_tab.querySelector("img").src = tab_obj["favicon_url"];
-    main_tab.querySelector("img").classList.add("tab_icon");
+    if (tab_obj["title"]){
+      main_tab.querySelector("p").innerHTML = tab_obj["title"];
+    }
+
+    if (tab_obj["favicon_url"]){
+      main_tab.querySelector("img").src = tab_obj["favicon_url"];
+      main_tab.querySelector("img").classList.add("tab_icon");
+    }
+
+    
 
     setIsProgrammaticNav(true);
     loadURLfromTabList(tab_in_tabList);

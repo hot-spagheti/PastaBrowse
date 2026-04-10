@@ -1,24 +1,29 @@
 {
-  "name": "pastabrowse",
+  "name": "PastaBrowse",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "A chromium based electron browser. Made as a both learning and passion project",
+  "main": "src/main.js",
   "scripts": {
-    "start": "electron src/main.js"
+    "start": "electron src/main.js",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hot-spagheti/PastaBrowse.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Medovarský Max",
+  "license": "GPL-2.0",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/hot-spagheti/PastaBrowse/issues"
   },
   "homepage": "https://github.com/hot-spagheti/PastaBrowse#readme",
   "devDependencies": {
-    "electron": "^41.0.3"
+    "electron": "^41.0.3",
+    "electron-builder": "^26.8.1"
   }
 }

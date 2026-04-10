@@ -1,5 +1,5 @@
 {
-  "name": "PastaBrowse",
+  "name": "pastabrowse",
   "version": "1.0.0",
   "description": "A chromium based electron browser. Made as a both learning and passion project",
   "main": "src/main.js",

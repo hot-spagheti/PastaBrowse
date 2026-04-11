@@ -65,7 +65,7 @@ nav{
     border-radius: 0.75rem;
     border: 0;
     outline: 0;
-    color: #ccc;
+    color: var(--text);
     font-size: 1.25rem;
 }
 

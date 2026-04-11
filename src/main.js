@@ -3,8 +3,15 @@ const {writeFileSync, readFileSync} = require("fs");
 const path = require("path");
 
 let win;
+let historyPath;
+const isDev = !app.isPackaged;
 
-const rootDir = path.join(__dirname, "..");
+if (isDev){
+	historyPath = path.join(__dirname, "history.json");
+} else {
+	historyPath = path.join(app.getPath("userData"), "history.json");
+}
+
 
 
 function createWindow(){
@@ -23,25 +30,32 @@ function createWindow(){
 			contextIsolation: true,
 			nodeIntegration: false
 		},
-		icon: path.join(rootDir, "Icons", "pasta_icon.png"),
+		icon: path.join(__dirname, "..", "Icons", "pasta_icon.png"),
 		frame: false,
 		center: true,
 		movable: true
 	});
+	
+	if (!isDev){
+		win.webContents.on("before-input-event", (event, input) => {
+			if (input.key === "F12" || input.control && input.shift && input.key === "I"){
+				event.preventDefault();
+			}
+		})
 
-	win.webContents.on("before-input-event", (event, input) => {
-		if (input.key === "F12" || input.control && input.shift && input.key === "I"){
-			event.preventDefault();
-		}
-	})
+		win.webContents.on("devtools-opened", () => {
+			win.webContents.closeDevTools();
+		})
+	}
+	
 
-	win.loadFile(path.join(rootDir, "public", "index.html"));
+	win.loadFile(path.join(__dirname, "..", "public", "index.html"));
 	win.webContents.setZoomFactor(1.0);
 	win.maximize();
 }
 
 ipcMain.on("kill-app", (_event, data) => {
-	writeFileSync(path.join(__dirname, "history.json"), JSON.stringify(data));
+	writeFileSync(historyPath, JSON.stringify(data));
 	app.quit();
 })
 
@@ -105,8 +119,12 @@ app.on("ready", () => {
 })
 
 ipcMain.on("get-history", () => {
-	const history_json = readFileSync(path.join(__dirname, "history.json"));
-	const history = JSON.parse(history_json);
-
-	win.webContents.send("res-history", history);
+	try {
+		const history_json = readFileSync(historyPath);
+		const history = JSON.parse(history_json);
+		win.webContents.send("res-history", history);
+	} catch {
+		win.webContents.send("res-history", {});
+	}
+	
 })

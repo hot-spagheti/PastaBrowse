@@ -54,6 +54,10 @@ function createWindow(){
 	win.maximize();
 }
 
+app.on("will-quit", () => {
+	globalShortcut.unregisterAll();
+})
+
 ipcMain.on("kill-app", (_event, data) => {
 	writeFileSync(historyPath, JSON.stringify(data));
 	app.quit();
@@ -69,6 +73,17 @@ ipcMain.on("maximize", () => {
 
 ipcMain.on("minimize", () => {
 	win.minimize();
+})
+
+ipcMain.on("get-history", () => {
+	try {
+		const history_json = readFileSync(historyPath);
+		const history = JSON.parse(history_json);
+		win.webContents.send("res-history", history);
+	} catch {
+		win.webContents.send("res-history", {});
+	}
+	
 })
 
 app.on("ready", () => {
@@ -116,15 +131,4 @@ app.on("ready", () => {
 			win.webContents.send("ctrl--");
 		}
 	})
-})
-
-ipcMain.on("get-history", () => {
-	try {
-		const history_json = readFileSync(historyPath);
-		const history = JSON.parse(history_json);
-		win.webContents.send("res-history", history);
-	} catch {
-		win.webContents.send("res-history", {});
-	}
-	
 })

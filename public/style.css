@@ -197,6 +197,10 @@ p{
 }
 
 .navBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background-color: var(--bg-300);
     border: 0;
     outline: 2px solid var(--border);

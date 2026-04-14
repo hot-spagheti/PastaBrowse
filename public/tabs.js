@@ -5,7 +5,7 @@ let id_count = 1
 
 export function newTab(isSettings = false){
   const newTabHTML = `
-    <div class="tab main_tab" id="tab_${id_count}">
+    <div class="tab main_tab" id="tab_${isSettings ? "settings" : id_count}">
       <img src="" alt="">
       <p class="tab_title">New Tab</p>
       <button class="tabXBtn" id="tabXBtn"><img src="../Icons/close.svg" alt="x"></button>
@@ -23,6 +23,9 @@ export function newTab(isSettings = false){
   
   newTabBtn.insertAdjacentHTML("beforebegin", newTabHTML);
 
+  newWebview(isSettings);
+  input.value = "";
+
   if (!isSettings){
     tab_list["tabs"].push(
       {
@@ -35,12 +38,6 @@ export function newTab(isSettings = false){
     ) 
   
     tab_list["main_tab_id"] = id_count;
-  }
-
-  newWebview(isSettings);
-  input.value = "";
-
-  if (!isSettings){
     id_count += 1;
   }
 }

@@ -52,6 +52,10 @@ function createWindow(){
 	win.loadFile(path.join(__dirname, "..", "public", "index.html"));
 	win.webContents.setZoomFactor(1.0);
 	win.maximize();
+
+	win.webContents.on("did-finish-load", () => {
+		win.webContents.send("preload-path", path.join(__dirname, "..", "public", "settings_page", "settings_preload.js"));
+	})
 }
 
 app.on("will-quit", () => {

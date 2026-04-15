@@ -1,5 +1,6 @@
 import {tab_list, saveNav, setIsRestoringSession} from "./navigation.js";
 import {root_exit} from "./ipc.js";
+import {setTheme} from "./themes.js"
 
 let id_count = 1
 
@@ -199,6 +200,7 @@ export function loadLastSesh(data){
   })
 }
 
+
 function newWebview(isSettings = false){
   const webview_container = document.getElementById("webview_container");
   const oldMainView = webview_container.querySelector(".main_view");
@@ -221,4 +223,35 @@ function newWebview(isSettings = false){
   }
 
   webview_container.appendChild(newView);
+}
+
+
+export function openSettings(settingsPreloadPath){
+  const settings_tab = document.getElementById("tab_settings"); 
+  
+  if (settings_tab){
+    switchTab(settings_tab);
+    return;
+  }
+
+  newTab(true);
+
+  const view_container = document.getElementById("webview_container");
+  const main_view = view_container.querySelector(".main_view");
+
+  const tab_container = document.getElementById("tab_container");
+  const main_tab = tab_container.querySelector(".main_tab");
+
+  main_tab.querySelector("p").innerHTML = "Settings";
+
+  main_view.setAttribute("preload", settingsPreloadPath);
+  main_view.src = "./settings_page/settings.html";
+
+  main_view.addEventListener("ipc-message", (event) => {
+
+    if (event.channel === "theme-change"){
+      const variant = event.args[0];
+      setTheme(variant);
+    }
+  })
 }

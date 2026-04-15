@@ -1,8 +1,13 @@
-import {loadURL, saveNav, refresh, history_backward, history_forward, openSettings} from "./navigation.js";
-import {newTab, removeTab, switchTab, loadLastSesh} from "./tabs.js";
-import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, onF5, getHistory, onResHistory, onCtrlEqual, onCtrlMinus, onCtrlZero} from "./ipc.js";
+import {loadURL, saveNav, refresh, history_backward, history_forward} from "./navigation.js";
+import {newTab, removeTab, switchTab, loadLastSesh, openSettings} from "./tabs.js";
+import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, onF5, getHistory, onResHistory, onCtrlEqual, onCtrlMinus, onCtrlZero, onSettingsPreloadPath} from "./ipc.js";
 import {setViewZoom, resetViewZoom} from "./zoom.js";
 
+let settingsPreloadPath;
+
+onSettingsPreloadPath((path) => {
+  settingsPreloadPath = path;
+})
 
 const searchBtn = document.getElementById("searchBtn");
 searchBtn.addEventListener("click", loadURL);
@@ -109,4 +114,4 @@ onCtrlZero(() => {
 })
 
 const settingsBtn = document.getElementById("settingsBtn");
-settingsBtn.addEventListener("click", openSettings);
+settingsBtn.addEventListener("click", () => {openSettings(settingsPreloadPath)});

@@ -75,3 +75,8 @@ export function onCtrlMinus(callback){
 export function onCtrlZero(callback){
   window.api.onCtrlZero(callback);
 }
+
+
+export function onSettingsPreloadPath(data){
+  window.api.onSettingsPreloadPath(data);
+}

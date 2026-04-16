@@ -88,7 +88,7 @@ export function switchTab(tab){
 
   const tab_id = Number(tab.id.slice(4));
 
-  if (tab_id){
+  if (tab_id || tab_id === 0){
     tab_list["main_tab_id"] = tab_id;
     
     const input = document.getElementById("url");

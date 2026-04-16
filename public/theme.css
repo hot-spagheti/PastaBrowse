@@ -14,6 +14,10 @@
 }
 
 .theme-red {
+    --text: #f2caca;
+    --exit: #ff4d4d;
+    --border: #3a1f1f;
+
     --bg-0: #bf3737;
     --bg-50: #852727;
     --bg-100: #8b2828;
@@ -25,6 +29,10 @@
 }
 
 .theme-orange {
+    --text: #f2d2bf;
+    --exit: #ff4d4d;
+    --border: #3a2418;
+
     --bg-0: #cb662b;
     --bg-50: #8e471e;
     --bg-100: #944a1f;
@@ -36,6 +44,10 @@
 }
 
 .theme-amber {
+    --text: #f2e0c2;
+    --exit: #ff4d4d;
+    --border: #3a2b18;
+
     --bg-0: #c58f31;
     --bg-50: #8a6422;
     --bg-100: #8f6824;
@@ -47,6 +59,10 @@
 }
 
 .theme-green {
+    --text: #cfead4;
+    --exit: #ff4d4d;
+    --border: #1f3324;
+
     --bg-0: #4aac5a;
     --bg-50: #34783f;
     --bg-100: #367d42;
@@ -58,6 +74,10 @@
 }
 
 .theme-teal {
+    --text: #cfe9e6;
+    --exit: #ff4d4d;
+    --border: #1f3331;
+
     --bg-0: #50a69d;
     --bg-50: #38746e;
     --bg-100: #3a7973;
@@ -69,6 +89,10 @@
 }
 
 .theme-blue {
+    --text: #d0def2;
+    --exit: #ff4d4d;
+    --border: #1c2a3a;
+
     --bg-0: #3e73b9;
     --bg-50: #2b5081;
     --bg-100: #2d5486;
@@ -80,6 +104,10 @@
 }
 
 .theme-indigo {
+    --text: #d4d4f2;
+    --exit: #ff4d4d;
+    --border: #1c1c3a;
+
     --bg-0: #4444b2;
     --bg-50: #2f2f7d;
     --bg-100: #313182;
@@ -91,6 +119,10 @@
 }
 
 .theme-purple {
+    --text: #e3d0f2;
+    --exit: #ff4d4d;
+    --border: #2a1c3a;
+
     --bg-0: #7b44b2;
     --bg-50: #562f7d;
     --bg-100: #5a3182;
@@ -102,6 +134,10 @@
 }
 
 .theme-pink {
+    --text: #f2d0e3;
+    --exit: #ff4d4d;
+    --border: #3a1c2a;
+    
     --bg-0: #b93e7b;
     --bg-50: #812b56;
     --bg-100: #862d5a;

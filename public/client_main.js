@@ -1,9 +1,12 @@
 import {loadURL, saveNav, refresh, history_backward, history_forward} from "./navigation.js";
 import {newTab, removeTab, switchTab, loadLastSesh, openSettings} from "./tabs.js";
-import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, onF5, getHistory, onResHistory, onCtrlEqual, onCtrlMinus, onCtrlZero, onSettingsPreloadPath} from "./ipc.js";
+import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, onF5, getHistory, onResHistory,
+    onCtrlEqual, onCtrlMinus, onCtrlZero, onSettingsPreloadPath, onSettings} from "./ipc.js";
 import {setViewZoom, resetViewZoom} from "./zoom.js";
 
-document.documentElement.classList.add("theme-grey");
+onSettings((settings) => {
+  document.documentElement.classList.add(settings["theme"]);
+})
 
 let settingsPreloadPath;
 

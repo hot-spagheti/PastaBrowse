@@ -1,4 +1,5 @@
 import {tab_list} from "./navigation.js";
+import {settings} from "./tabs.js";
 
 export function root_exit(){
   const tab_container = document.getElementById("tab_container");
@@ -6,7 +7,12 @@ export function root_exit(){
 
   tab_list["main_tab_id"] = Number(main_tab_id);
 
-  window.api.killApp(tab_list);
+  const data = {
+    "tab_list": tab_list,
+    "settings": settings
+  }
+
+  window.api.killApp(data);
 };
 
 
@@ -79,4 +85,9 @@ export function onCtrlZero(callback){
 
 export function onSettingsPreloadPath(data){
   window.api.onSettingsPreloadPath(data);
+}
+
+
+export function onSettings(data){
+  window.api.onSettings(data);
 }

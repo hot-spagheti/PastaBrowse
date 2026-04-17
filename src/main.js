@@ -4,15 +4,20 @@ const path = require("path");
 
 let win;
 let historyPath;
+let settingsPath;
 const isDev = !app.isPackaged;
 
 if (isDev){
 	historyPath = path.join(__dirname, "history.json");
+	settingsPath = path.join(__dirname, "settings.json")
 } else {
 	historyPath = path.join(app.getPath("userData"), "history.json");
+	settingsPath = path.join(app.getPath("userData"), "settings.json");
 }
 
-
+const default_settings = {
+	"theme": "theme-grey"
+};
 
 function createWindow(){
 	const primaryDisplay = screen.getPrimaryDisplay();
@@ -53,18 +58,37 @@ function createWindow(){
 	win.webContents.setZoomFactor(1.0);
 	win.maximize();
 
+	let settings;
+
+	try {
+		const settings_json = readFileSync(settingsPath);
+		settings = JSON.parse(settings_json);
+	} catch (er){
+		console.error(er);
+		settings = default_settings;
+	};
+
+	if (Object.keys(settings).length === 0 && Object.values(settings).length === 0){
+		settings = default_settings;
+	};
+
 	win.webContents.on("did-finish-load", () => {
+		win.webContents.send("settings", settings);
 		win.webContents.send("preload-path", path.join(__dirname, "..", "public", "settings_page", "settings_preload.js"));
 	})
 }
 
-app.on("will-quit", () => {
-	globalShortcut.unregisterAll();
+ipcMain.on("kill-app", (_event, data) => {
+	const tab_list = data["tab_list"];
+	const settings = data["settings"];
+
+	writeFileSync(historyPath, JSON.stringify(tab_list));
+	writeFileSync(settingsPath, JSON.stringify(settings));
+	app.quit();
 })
 
-ipcMain.on("kill-app", (_event, data) => {
-	writeFileSync(historyPath, JSON.stringify(data));
-	app.quit();
+app.on("will-quit", () => {
+	globalShortcut.unregisterAll();
 })
 
 ipcMain.on("maximize", () => {

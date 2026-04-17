@@ -3,6 +3,7 @@ import {root_exit} from "./ipc.js";
 import {setTheme} from "./themes.js"
 
 let id_count = 1
+export let settings = {};
 
 export function newTab(isSettings = false){
   const newTabHTML = `
@@ -251,6 +252,7 @@ export function openSettings(settingsPreloadPath){
 
     if (event.channel === "theme-change"){
       const variant = event.args[0];
+      settings["theme"] = variant;
       setTheme(variant);
     }
   })

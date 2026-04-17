@@ -49,6 +49,10 @@ export function removeTab(tab){
   const previousEl = tab.previousElementSibling;
   let nextEl = tab.nextElementSibling;
   
+  const tab_id = tab.id.slice(4);
+  const view_id = "view_" + tab_id;
+  const view = document.getElementById(view_id);
+
   if (!nextEl.classList.contains("tab")){
     nextEl = null;
   }
@@ -57,9 +61,11 @@ export function removeTab(tab){
     if (nextEl !== null){
       switchTab(nextEl);
       tab.remove();
+      view.remove();
     } else if (previousEl !== null){
       switchTab(previousEl);
       tab.remove();
+      view.remove()
     } else {
       root_exit();
     }
@@ -67,6 +73,7 @@ export function removeTab(tab){
   } else {
     if (previousEl !== null || nextEl !== null){
       tab.remove();
+      view.remove();
     } else {
       root_exit();
     }

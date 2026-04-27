@@ -6,10 +6,7 @@ let win;
 let historyPath;
 let settingsPath;
 
-const preload_paths_object = {
-  "settings": path.join(__dirname, "..", "public", "settings_page", "settings_preload.js"),
-  "themes": path.join(__dirname, "..", "public", "themes_page", "themes_preload.js")
-};
+const settings_preload_path = path.join(__dirname, "..", "public", "settings_preload.js")
 
 const isDev = !app.isPackaged;
 
@@ -80,7 +77,7 @@ function createWindow() {
 
   win.webContents.on("did-finish-load", () => {
     win.webContents.send("settings", settings);
-    win.webContents.send("preload-paths", preload_paths_object);
+    win.webContents.send("settings-preload-path", settings_preload_path);
   })
 }
 

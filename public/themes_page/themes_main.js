@@ -1,11 +1,10 @@
-import {setTheme} from "./settings_ipc.js"
+import {setTheme} from "./themes_ipc.js";
 
 const redBtn = document.getElementById("redBtn");
 redBtn.addEventListener("click", () => {setTheme("theme-red")});
 
 const greenBtn = document.getElementById("greenBtn");
 greenBtn.addEventListener("click", () => {setTheme("theme-green")});
-
 
 const blueBtn = document.getElementById("blueBtn");
 blueBtn.addEventListener("click", () => {setTheme("theme-blue")});

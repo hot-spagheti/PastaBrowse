@@ -1,8 +1,8 @@
-import {newTab} from "./tabs.js"
+import {newTab, switchTab} from "./tabs.js";
 
 export let settings = {};
 
-export function openSettings(preloadPaths) {
+export function openSettings(preloadPath) {
   const settings_tab = document.getElementById("tab_settings");
 
   if (settings_tab) {
@@ -19,23 +19,15 @@ export function openSettings(preloadPaths) {
   const main_tab = tab_container.querySelector(".main_tab");
 
   main_tab.querySelector("p").innerHTML = "Settings";
-
-  main_view.setAttribute("preload", preloadPaths["settings"]);
+  
+  main_view.setAttribute("preload", preloadPath);
   main_view.src = "./settings_page/settings.html";
 
   main_view.addEventListener("ipc-message", (event) => {
-
     if (event.channel === "theme-change") {
       const variant = event.args[0];
       settings["theme"] = variant;
       setTheme(variant);
-    }
-  })
-
-  main_view.addEventListener("will-navigate", (e) => {
-    if (e.url.includes("themes.html")) {
-      e.preventDefault();
-      main_view.setAttribute("preload", preloadPaths["themes"]);
     }
   })
 }

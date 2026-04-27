@@ -1,7 +1,7 @@
 import {loadURL, saveNav, refresh, history_backward, history_forward} from "./navigation.js";
 import {newTab, removeTab, switchTab, loadLastSesh} from "./tabs.js";
 import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, onF5, getHistory, onResHistory,
-    onCtrlEqual, onCtrlMinus, onCtrlZero, onPreloadPaths, onSettings} from "./ipc.js";
+    onCtrlEqual, onCtrlMinus, onCtrlZero, onSettingsPreloadPath, onSettings} from "./ipc.js";
 import {setViewZoom, resetViewZoom} from "./zoom.js";
 import {openSettings} from "./settings.js"
 
@@ -9,10 +9,10 @@ onSettings((settings) => {
   document.documentElement.classList.add(settings["theme"]);
 })
 
-let preloadPaths;
+let settingsPreloadPath;
 
-onPreloadPaths((paths_obj) => {
-  preloadPaths = paths_obj;
+onSettingsPreloadPath((paths_obj) => {
+  settingsPreloadPath = paths_obj;
 })
 
 const searchBtn = document.getElementById("searchBtn");
@@ -120,4 +120,4 @@ onCtrlZero(() => {
 })
 
 const settingsBtn = document.getElementById("settingsBtn");
-settingsBtn.addEventListener("click", () => {openSettings(preloadPaths)});
+settingsBtn.addEventListener("click", () => {openSettings(settingsPreloadPath)});

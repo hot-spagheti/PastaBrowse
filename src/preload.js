@@ -14,6 +14,6 @@ contextBridge.exposeInMainWorld("api", {
   onCtrlZero: (callback) => ipcRenderer.on("ctrl-0", (_event) => callback()),
   getHistory: () => ipcRenderer.send("get-history"),
   onResHistory: (callback) => ipcRenderer.on("res-history", (_event, data) => callback(data)),
-  onPreloadPaths: (callback) => ipcRenderer.on("preload-paths", (_event, data) => callback(data)),
+  onSettingsPreloadPath: (callback) => ipcRenderer.on("settings-preload-path", (_event, data) => callback(data)),
   onSettings: (callback) => ipcRenderer.on("settings", (_event, data) => callback(data))
 });

@@ -83,8 +83,8 @@ export function onCtrlZero(callback){
 }
 
 
-export function onPreloadPaths(data){
-  window.api.onPreloadPaths(data);
+export function onSettingsPreloadPath(data){
+  window.api.onSettingsPreloadPath(data);
 }
 
 

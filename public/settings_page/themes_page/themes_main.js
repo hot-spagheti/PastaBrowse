@@ -1,8 +1,5 @@
-import {setTheme} from "./themes_ipc.js";
-import {settings} from "../settings.js";
+import {setTheme} from "../settings_ipc.js";
 
-const theme = settings["theme"];
-document.documentElement.classList.add(theme);
 
 const redBtn = document.getElementById("redBtn");
 redBtn.addEventListener("click", () => {setTheme("theme-red")});

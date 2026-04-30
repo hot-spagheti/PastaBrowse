@@ -1,7 +1,7 @@
 import {loadURL, saveNav, refresh, history_backward, history_forward} from "./navigation.js";
-import {newTab, removeTab, switchTab, loadLastSesh} from "./tabs.js";
+import {newTab, removeTab, switchTab, loadLastSesh, switchToNeigborTab} from "./tabs.js";
 import {root_exit, toggleMaximize, minimize, onCtrlT, onCtrlW, onCtrlR, onF5, getHistory, onResHistory,
-    onCtrlEqual, onCtrlMinus, onCtrlZero, onSettingsPreloadPath, onSettings} from "./ipc.js";
+    onCtrlEqual, onCtrlMinus, onCtrlZero, onSettingsPreloadPath, onSettings, onCtrlTab, onCtrlShiftTab} from "./ipc.js";
 import {setViewZoom, resetViewZoom} from "./zoom.js";
 import {openSettings, setTheme} from "./settings.js";
 
@@ -121,3 +121,11 @@ onCtrlZero(() => {
 
 const settingsBtn = document.getElementById("settingsBtn");
 settingsBtn.addEventListener("click", () => {openSettings(settingsPreloadPath)});
+
+onCtrlTab(() => {
+  switchToNeigborTab("right");
+})
+
+onCtrlShiftTab(() => {
+  switchToNeigborTab("left");
+})

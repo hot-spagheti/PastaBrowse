@@ -91,3 +91,13 @@ export function onSettingsPreloadPath(data){
 export function onSettings(data){
   window.api.onSettings(data);
 }
+
+
+export function onCtrlTab(callback){
+  window.api.onCtrlTab(callback);
+}
+
+
+export function onCtrlShiftTab(callback){
+  window.api.onCtrlShiftTab(callback);
+}

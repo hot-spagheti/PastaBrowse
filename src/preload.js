@@ -15,5 +15,7 @@ contextBridge.exposeInMainWorld("api", {
   getHistory: () => ipcRenderer.send("get-history"),
   onResHistory: (callback) => ipcRenderer.on("res-history", (_event, data) => callback(data)),
   onSettingsPreloadPath: (callback) => ipcRenderer.on("settings-preload-path", (_event, data) => callback(data)),
-  onSettings: (callback) => ipcRenderer.on("settings", (_event, data) => callback(data))
+  onSettings: (callback) => ipcRenderer.on("settings", (_event, data) => callback(data)),
+  onCtrlTab: (callback) => ipcRenderer.on("ctrl-tab", (_event) => callback()),
+  onCtrlShiftTab: (callback) => ipcRenderer.on("ctrl-shift-tab", (_event) => callback())
 });

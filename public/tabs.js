@@ -231,3 +231,29 @@ function newWebview(isSettings = false){
 
   webview_container.appendChild(newView);
 }
+
+
+export function switchToNeigborTab(direction){
+  const tab_container = document.getElementById("tab_container");
+  const current_tab = tab_container.querySelector(".main_tab");
+
+  let rightTab = current_tab.nextElementSibling;
+  let leftTab = current_tab.previousElementSibling;
+
+  if (!rightTab.classList.contains("side_tab")){
+    rightTab = current_tab.parentElement.firstElementChild;
+  }
+  
+  if (!leftTab){
+    leftTab = current_tab.parentElement.lastElementChild.previousElementSibling.previousElementSibling;
+  }
+
+  switch (direction){
+    case "left":
+      switchTab(leftTab);
+      break;
+    case "right":
+      switchTab(rightTab);
+      break;
+  }
+}

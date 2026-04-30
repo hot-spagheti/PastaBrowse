@@ -162,4 +162,16 @@ app.on("ready", () => {
       win.webContents.send("ctrl--");
     }
   })
+
+  globalShortcut.register("CommandOrControl+Tab", () => {
+    if (win.isFocused()) {
+      win.webContents.send("ctrl-tab");
+    }
+  })
+
+  globalShortcut.register("CommandOrControl+Shift+Tab", () => {
+    if (win.isFocused()) {
+      win.webContents.send("ctrl-shift-tab");
+    }
+  })
 })

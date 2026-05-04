@@ -27,7 +27,7 @@ export function newTab(isSettings = false){
   newWebview(isSettings);
   input.value = "";
 
-  if (!isSettings){
+  if (!isSettings){       /*make switch for !settings & settings*/
     tab_list["tabs"].push(
       {
         "tab_id": id_count,
@@ -39,7 +39,7 @@ export function newTab(isSettings = false){
     ) 
   
     tab_list["main_tab_id"] = id_count;
-    id_count += 1;
+    id_count += 1;        /*increase only if !settings*/
   }
 }
 
@@ -222,7 +222,7 @@ function newWebview(isSettings = false){
 
   newView.id = `view_${isSettings ? "settings" : id_count}`;
 
-  if (!isSettings){
+  if (!isSettings){        /*remove condition*/
     const captured_id = id_count;
 
     newView.addEventListener("did-navigate", (e) => saveNav(e, captured_id));

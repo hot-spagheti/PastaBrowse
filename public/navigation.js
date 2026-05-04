@@ -100,7 +100,7 @@ export function loadURLfromTabList(tab, h = 0){
 }
 
 
-export function saveNav(e, tab_id){
+export function saveNav(e, tab_id){          /*refactor to support settings behavior*/
   if (isRestoringSession){
     return;
   }
